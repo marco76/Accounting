@@ -1,0 +1,24 @@
+#{set 'moreScripts'}
+<link type="text/css" href="/public/stylesheets/form_style.css" rel="stylesheet"/>
+
+#{/set}
+
+#{extends 'main.html' /}
+
+
+#{set title:'Home' /}
+<div id="content">
+<p>
+</p>
+<div id="updateAccountModelForm">
+<form action="@{AccountingModelC.doUpdate()}" method="POST">
+    <ol style="text-align: left">
+    <li>
+        <label>Name IT</label>
+       <input type = "text" name="accountingModel.nameIT" value="${accountingModel.nameIT}"/>
+        <input type="hidden" name="accountingModel.id" value="${accountingModel.id}"/></p>
+     </li>
+    <input type="submit" name="update" value="Update">
+    </form>
+</div>
+</div>

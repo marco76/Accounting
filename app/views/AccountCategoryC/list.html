@@ -1,0 +1,49 @@
+#{set 'moreScripts'}
+<script>
+    jQuery(document).ready(function(){
+    $('#accordion').accordion({
+        changestart: function(event, ui){
+                var clicked = $(this).find('.ui-state-active').attr('id');
+                $('#'+clicked).load('/widgets/'+clicked);
+        }
+})});
+
+</script>
+<link type="text/css" href="/public/stylesheets/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
+
+#{/set}
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<a href="@{AccountCategoryC.prepareCreateSubCategory(accountingModelId, parentCategoryId)}">Create new type</a>
+<br/>
+<br/>
+<a href="@{AccountCategoryC.list(accountingModelId, null)}">${accountingModel.nameIT}</a> ->
+#{list items:parents, as:'category'}
+<a href="@{AccountCategoryC.list(accountingModelId, category.id)}">${category.nameIT}</a> ->
+#{/list}
+<table id="hor-minimalist-b">
+    <thead><tr>
+        <th>Number</th>
+        <th>Name It</th><th></th><th></th><th></th><th></th><th></th></tr></thead>
+    <tbody>
+#{list items:accountCategories, as:'accountCategory'}
+    <tr>
+        <td>${accountCategory.number}</td>
+        <td>${accountCategory.nameIT}</td>
+        <td> <a href="@{AccountCategoryC.prepareUpdate(accountCategory.id)}"><img src="/public/images/edit.png"/> </a></td>
+
+        <td>
+        #{if accountCategory.account == null || accountCategory.account.booleanValue() == false}
+            <a href="@{AccountCategoryC.list(accountingModelId, accountCategory.id)}"><img src="/public/images/arrow_down.png"/> </a></td>
+        #{/if}
+        <td> <a href="@{AccountCategoryC.prepareCreateSubCategory(accountCategory.id)}"><img src="/public/images/new_folder.png"/> </a></td>
+        <td> <a href="@{AccountCategoryC.delete(accountCategory.id)}"><img src="/public/images/delete.png"/> </a></td>
+
+        <td> <a href=""><img src="/public/images/account_classes.png"/> </a></td>
+
+    </tr>
+#{/list}
+    </tbody>
+</table>
+
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="${_response_encoding}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/greenMenu/menu.css'}">
+
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/menu_style.css'}">
+        #{get 'moreStyles' /}
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/jquery-ui-1.8.16.custom.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <link type="text/css" href="/public/stylesheets/table_min_style.css" rel="stylesheet"/>
+
+    #{get 'moreScripts' /}
+    </head>
+    <body>
+    <ul id="green">
+    		<li class="current"><a href="@{Application.index}" title="">Home<span>This takes you to the welcome page of the website - the starting point for everything.</span></a></li>
+    		<li><a href="@{ActorC.listActors}" title="">Actors list<span>We are a great team of people, with lots of fantastic things to offer.</span></a></li>
+    		<li><a href="@{InvoiceC.invoicesList}" title="">Invoices List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+            <li><a href="@{ClientC.listClient}" title="">Client list<span>We are a great team of people, with lots of fantastic things to offer.</span></a></li>
+            <li><a href="@{SaleC.listSales}" title="">Sales List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+            <li><a href="@{TodoC.list}" title="">Todo List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+        <li><a href="@{VariablesC.list}" title="">Variable List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+        <li><a href="@{AccountingModelC.list}" title="">Accounting List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+    <!--Authentification code-->
+    #{if session.userId != null}
+    <li><a href="@{Authenticate.logout()}">Logout</a></li>
+    #{/if}
+    #{else}
+    <li><a href="@{Authenticate.login()}">Login</a></li>
+    #{/else}
+
+    </ul>
+
+        <br/>
+        #{doLayout /}
+        </body>
+</html>

@@ -1,0 +1,50 @@
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/jquery.numberformatter-1.2.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/jshashset.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<link type="text/css" href="/public/stylesheets/table_min_style.css" rel="stylesheet"/>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#example').dataTable({
+            "bSort": false
+        });
+    });
+</script>
+#{/set}
+
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+    <thead><tr>
+        <th style="text-align: left">Client</th>
+        <th>due date</th>
+        <th>reference</th>
+        <th>amount</th>
+        <th>vat</th>
+        <th>amount TTC</th>
+        <th>paid</th>
+        <th></th>
+    </tr></thead>
+    <tbody>
+#{list items:sales, as:'sale'}
+    <tr>
+        <td style="text-align:left; width: 100px">${sale.client.name}</td>
+        <td style="text-align: right; width:75px">${sale.dueDate.format("dd.MM.yyyy")} </td>
+        <td>${sale.reference}</td>
+        <td style="text-align: right; width:55px">${sale.amount.format("#,###.00").raw()}</td>
+        <td style="text-align: right; width:55px; color: #aaaaaa;">${sale.vatAmount.format("#,###.00").raw()}</td>
+        <td style="text-align: right; width:55px; color: #aaaaaa;">${sale.amountTTC.format("#,###.00").raw()}</td>
+        <td><input type="checkbox" value="${sale.paid}" ${sale.paid.booleanValue()? 'checked="checked"' :''} disabled="true"/> </td>
+        <td> <a href="@{SaleC.prepareUpdate(sale.id)}"><img src="/public/images/edit.png"/> </a></td>
+
+    </tr>
+#{/list}
+    </tbody>
+
+
+
+</table>
+<br/>
+<br/>
+Total amount : ${totalAmount.format('##,###.00')}
+<br/>
+Total amount to be paid : ${totalAmountToBePaid.format('##,###.00')}

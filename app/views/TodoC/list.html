@@ -1,0 +1,22 @@
+
+
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<a href="@{TodoC.create()}">Create new todo</a>
+<br/>
+<br/>
+
+<table id="hor-minimalist-b">
+    <thead><tr><th>description</th><th>due date</th><th>closed</th><th></th><th></th></tr></thead>
+    <tbody>
+#{list items:todos, as:'todo'}
+    <tr>
+        <td>${todo.description}</td><td>${todo.dueDate?todo.dueDate.format("dd.MM.yy"):''}</td>${todo.finished}<td></td>
+        <td> <a href="@{TodoC.prepareUpdate(todo.id)}"><img src="/public/images/edit.png"/> </a></td>
+        <td> <a href="@{TodoC.doDelete(todo.id)}"><img src="/public/images/delete.png"/> </a></td>
+
+    </tr>
+#{/list}
+    </tbody>
+</table>
+

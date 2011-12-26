@@ -1,0 +1,31 @@
+#{set 'moreScripts'}
+<link type="text/css" href="/public/stylesheets/form_style.css" rel="stylesheet"/>
+
+#{/set}
+
+#{extends 'main.html' /}
+
+
+#{set title:'Home' /}
+<div id="content">
+<p>
+</p>
+<div id="updateAccountCategoryForm">
+<form action="@{AccountCategoryC.doUpdate()}" method="POST">
+    <ol style="text-align: left">
+        <li><label for="number">Number:</label>
+                <input type = "text" name="accountCategory.number" value="${accountCategory.number}" id="number"/>
+        </li>
+    <li><label for="nameIT">Name:</label>
+            <input type = "text" name="accountCategory.nameIT" value="${accountCategory.nameIT}" id="nameIT"/>
+    </li>
+    <li><label>Account:</label>
+        <input type="checkbox" name="accountCategory.account" ${accountCategory.account?.booleanValue()?'checked="checked"' :''}>
+                                     <input type="hidden" name="accountCategory.account" value="false"/>
+            </li>
+        <input type="hidden" name="accountCategory.id" value="${accountCategory.id}"/></p>
+        </ol>
+            <input type="submit" name="update" value="Update">
+    </form>
+</div>
+</div>

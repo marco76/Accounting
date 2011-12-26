@@ -1,0 +1,64 @@
+#{set 'moreScripts'}
+<link type="text/css" href="/public/stylesheets/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
+<link type="text/css" href="/public/stylesheets/form_style.css" rel="stylesheet"/>
+
+<script>
+    $(function () {
+        $('#datepicker').datepicker({dateFormat:'dd.mm.yy'});
+    });
+
+</script>
+#{/set}
+
+#{extends 'main.html' /}
+
+
+#{set title:'Home' /}
+<div id="content">
+    <div id="updateForm" style="width: 500px">
+        <form action="@{SaleC.doUpdate()}" method="POST">
+            <p>Create sale item</p>
+            <ol style="text-align: left">
+                <li>
+                    <label for="clientName">Client</label>
+                    <input type="text" value="${sale.client.name}" id="clientName" disabled="true"/>
+                    <input type="hidden" name="sale.id" value="${sale.id}"/>
+                </li>
+            <li>
+                    <label>Invoice amount:</label>
+                    <input type="text" name="sale.amount" value="${sale.amount}" id="amount"/>
+            </li>
+                <li>
+                    <label for="vatPerc">VAT:</label>
+                    <input type="text" style="width: 50px" name="sale.vatPercent" value="${sale.vatPercent}" id="vatPerc"/>
+                </li>
+                <li>
+                    <label for="vatAmount">VAT amount:</label>
+                    <input type="text" name="sale.vatAmount" value="${sale.vatAmount}" id="vatAmount"/>
+                </li>
+                <li>
+                    <label for="amountTTC">Invoice amount taxes in:</label>
+                    <input type="text" name="sale.amountTTC" value="${sale.amountTTC}" id="amountTTC"/>
+                </li>
+                <li><label for="datepicker">Due date:</label>
+                    <input type="text" name="dueDate" value="${sale.dueDate? sale.dueDate.format("dd.MM.yyyy"):'' }"
+                           id="datepicker"/>
+                </li>
+                <li><label>paid:</label>
+                    <input type="checkbox" name="sale.paid" ${sale.paid.booleanValue()? 'checked="checked"' :''}/>
+                    <input type="hidden" name="sale.paid" value="false"/>
+
+                </li>
+            </ol>
+            <input type="submit" name="update" value="Update">
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#vatPerc').change(function () {
+        var vatAmount = $('#amount').val() / 100 * ($('#vatPerc').val());
+        vatAmount= Math.round(vatAmount*Math.pow(10,2))/Math.pow(10,2);
+        $('#vatAmount').val(vatAmount);
+        $('#amountTTC').val($('#amount').val() * 1 + vatAmount);
+    });
+</script>

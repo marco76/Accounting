@@ -1,0 +1,46 @@
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/jquery.numberformatter-1.2.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/jshashset.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+
+
+<script>
+    $("#salary").blur(function(){
+       $(this).parseNumber({format:"#,###.00", locale:"ch"});
+       $(this).formatNumber({format:"#,###.00", locale:"ch"});
+    });
+	</script>
+#{/set}
+
+#{extends 'templates/_invoice.html' /}
+#{set 'menu'}
+
+#{/set}
+#{set title:'Home' /}
+<table id="hor-minimalist-b" summary="Employee Pay Sheet">
+    <thead>
+    <tr>
+        <th style="text-align: left">Company</th>
+        <th>due date</th>
+        <th>amount</th>
+        <th>closed</th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+#{list items:invoices, as:'invoice'}
+    <tr>
+        <td style="text-align:left; width: 100px">${invoice.actor.name}</td>
+        <td style="text-align:right; width: 75px">${invoice.dateToPay.format("dd.MM.yyyy")} </td>
+        <td style="text-align:right; width: 55px">${invoice.amount.format("#,###.00").raw()}</td>
+        <td><input type="checkbox" value="${invoice.closed}" ${invoice.closed?.booleanValue()? 'checked="checked"' :''} disabled="true"/> </td>
+        <td><a href="@{InvoiceC.prepareUpdateInvoice(invoice.id)}"><img src="/public/images/edit.png"/> </a></td>
+    </tr>
+#{/list}
+    </tbody>
+
+
+
+</table>
+<br/>
+Total amount to pay: ${totalAmount.format('##,###.00')}

@@ -1,0 +1,44 @@
+#{extends 'main.html'/}
+#{set title:'User auth'/}
+#{set 'moreStyles'}
+#{/set}
+
+<div id="content">
+    <h1>Register user</h1>
+    <p>
+        
+    </p>
+    <div id="registerForm">
+        <form action="@{Authenticate.doRegister()}" method="POST">
+            <p clss="field">
+                <span class="error">#{error 'user.username' /}</span>
+                <label>Username</label>
+                <input type="text" name="user.username" value="${flash['user.username']}">
+
+            </p>
+            <p class="field">
+                    <span class="error">#{error 'user.password' /}</span>
+                    <label>Password</label>
+                    <input type="password" name="user.password" />
+                  </p>
+                  <p class="field">
+                    <span class="error">#{error 'user.firstName' /}</span>
+                    <label>Firstname</label>
+                    <input type="text" name="user.firstName"
+                     value="${flash['user.firstName']}"/>
+                   </p>
+            <p class="field">
+                <span class="error">#{error 'user.lastName' /}</span>
+                        <label>Lastname</label>
+                        <input type="text" name="user.lastName"
+                value="${flash['user.lastName']}"/>
+                      </p>
+                      <p class="field">
+                        <span class="error">#{error 'user.email' /}</span>
+                        <label>Email</label>
+                        <input type="text" name="user.email" value="${flash['user.email']}"/>
+                </p>
+                      <input type="submit" name="create" value="Register"/>
+                    </form>
+                  </div>
+                </div>

@@ -1,0 +1,26 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<div id="content">
+<p>
+    Complete the form to add a new Variable in the database
+</p>
+<div id="createForm">
+<form action="@{VariablesC.doCreate()}" method="POST">
+<p>
+    <p class="field">
+        <label>Variable name:</label>
+        <input type = "text" name="variable.name"/>
+    </p>
+    <p class="field">
+        <label>Variable value:</label>
+        <input type = "text" name="variable.value"/>
+     </p>
+    <p class="field">
+            <label>Variable year:</label>
+            <input type = "text" name="variable.year"/>
+    </p>
+
+    <input type="submit" name="create" value="Create">
+    </form>
+</div>
+</div>

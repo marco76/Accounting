@@ -1,0 +1,21 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<div id="content">
+<p>
+    Complete the form to add a new ActorC in the database
+</p>
+<div id="createActorForm">
+<form action="@{ActorC.saveActor()}" method="POST">
+<p>
+    <p class="field">
+        <label>ActorC name:</label>
+        <input type = "text" name="actor.name"/>
+    </p>
+    <p class="field">
+            <label>short name:</label>
+            <input type = "text" name="actor.shortName"/>
+    </p>
+    <input type="submit" name="create" value="Create">
+    </form>
+</div>
+</div>

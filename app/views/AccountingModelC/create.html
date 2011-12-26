@@ -1,0 +1,20 @@
+#{extends 'main.html' /}
+#{set 'moreScripts'}
+<link type="text/css" href="/public/stylesheets/form_style.css" rel="stylesheet"/>
+#{/set}
+#{set title:'Home' /}
+<div id="content">
+<p>
+</p>
+<div id="createForm">
+<form action="@{AccountingModelC.doCreate()}" method="POST">
+<ol>
+    <li><label for="nameIT">Name:</label>
+            <input type = "text" name="accountingModel.nameIT" id="nameIT"/>
+    </li>
+</ol>
+
+    <input type="submit" name="create" value="Create">
+    </form>
+</div>
+</div>

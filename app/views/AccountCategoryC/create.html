@@ -1,0 +1,28 @@
+#{extends 'main.html' /}
+#{set 'moreScripts'}
+<link type="text/css" href="/public/stylesheets/form_style.css" rel="stylesheet"/>
+#{/set}
+#{set title:'Home' /}
+<div id="content">
+<p>
+</p>
+<div id="createForm">
+<form action="@{AccountCategoryC.doCreate()}" method="POST">
+<ol>
+    <li><label for="number">Number:</label>
+                <input type = "text" name="accountCategory.number" id="number"/>
+        </li>
+    <li><label for="nameIT">Name:</label>
+            <input type = "text" name="accountCategory.nameIT" id="nameIT"/>
+    </li>
+    <li><label>Account:</label>
+            <input type="checkbox" name="accountCategory.account">
+        </li>
+</ol>
+    <input type="hidden" name="modelId" value="${accountingModel.id}"/>
+    <input type="hidden" name="accountCategoryId" value="${accountCategoryId}"/>
+
+    <input type="submit" name="create" value="Create">
+    </form>
+</div>
+</div>

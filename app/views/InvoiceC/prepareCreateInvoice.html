@@ -1,0 +1,36 @@
+#{set 'moreScripts'}
+<link type="text/css" href="/public/stylesheets/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
+
+<script>
+	$(function() {
+		$('#datepicker').datepicker({dateFormat:'dd.mm.yy'});
+	});
+	</script>
+#{/set}
+
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<div id="content">
+<p>
+    Create invoice
+</p>
+<div id="updateInvoiceForm">
+<form action="@{InvoiceC.doCreateInvoice()}" method="POST">
+    <p> <p class="field">
+        <label>ActorC</label>
+        <label>${actor.name}</label>
+    </p>
+        <p><input type="hidden" name="id" value="${actor.id}"/> </p>
+
+    <p class="field">
+            <label>Invoice amount:</label>
+            <input type = "text" name="invoice.amount"/>
+        </p>
+        <p class="field">
+                <label>due date:</label>
+                <input type = "text" name="dateToPay" id="datepicker"/>
+        </p>
+    <input type="submit" name="create" value="Create">
+    </form>
+</div>
+</div>

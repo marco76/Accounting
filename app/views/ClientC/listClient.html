@@ -1,0 +1,15 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<a href="@{ClientC.newClient()}">Create new client</a>
+<br/>
+<br/>
+<table id="hor-minimalist-b"><thead><tr><th>Name</th><th></th></tr></thead>
+<tbody>
+#{list items:clients, as:'client'}
+   <tr><td>
+    ${client.name}
+   </td>
+    <td> <a href="@{ClientC.actionClient(client.id)}"><img src="/public/images/edit.png"/> </a></td>
+   </tr>
+#{/list}
+</tbody>

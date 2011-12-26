@@ -1,0 +1,32 @@
+#{extends 'main.html' /}
+#{set 'moreScripts'}
+<link type="text/css" href="/public/stylesheets/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
+<link type="text/css" href="/public/stylesheets/form_style.css" rel="stylesheet"/>
+
+<script>
+    $(function () {
+        $('#dueDate').datepicker({dateFormat:'dd.mm.yy'});
+    });
+
+</script>
+#{/set}
+#{set title:'Home' /}
+<div id="content">
+<p>
+    Complete the form to add a new Todo in the database
+</p>
+<div id="createForm">
+<form action="@{TodoC.doCreate()}" method="POST">
+<ol>
+    <li><label for="description">Todo description:</label>
+            <input type = "text" name="todo.description" id="description"/>
+    </li>
+    <li><label for="dueDate">due date:</label>
+                <input type = "text" name="dueDate" id="dueDate"/>
+     </li>
+</ol>
+
+    <input type="submit" name="create" value="Create">
+    </form>
+</div>
+</div>

@@ -1,0 +1,18 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<div id="content">
+<p>
+    Complete the form to add a new Client in the database
+</p>
+<div id="createClientForm">
+<form action="@{ClientC.doCreateClient()}" method="POST">
+<p>
+    <p class="field">
+        <label>Client name:</label>
+        <input type = "text" name="client.name"/>
+    </p>
+
+    <input type="submit" name="create" value="Create">
+    </form>
+</div>
+</div>

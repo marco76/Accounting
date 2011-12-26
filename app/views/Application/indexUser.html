@@ -1,0 +1,25 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<table id="hor-minimalist-b">
+    <thead><tr>
+        <th>month</th>
+        <th>year</th>
+        <th>amount to pay</th>
+        <th>sales</th>
+        <th>difference</th>
+    </tr></thead>
+    <tbody>
+    #{list items:monthlyData, as: 'data'}
+
+    <tr>
+        <td>${data.month}</td>
+        <td>${data.year}</td>
+        <td align="right">${data.amountOfInvoicesToPay.format("#,###.00")}</td>
+        <td align="right">${data.amountOfSales.format("#,###.00")}</td>
+        <td align="right">${data.differenceToPayAndSales.format("#,###.00")}</td>
+    </tr>
+
+#{/list}
+    </tbody>
+</table>

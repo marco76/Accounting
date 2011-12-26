@@ -1,0 +1,25 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<a href="@{ActorC.addActor}">Create new actor</a>
+<br/>
+<br/>
+<table id="hor-minimalist-b">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Short name</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+#{list items:actors, as:'actor'}
+    <tr>
+        <td>${actor.name}</td>
+        <td>${actor.shortName}</td>
+        <td> <a href="@{ActorC.actionActor(actor.id)}"><img src="/public/images/edit.png"/> </a></td>
+
+    </tr>
+#{/list}
+    </tbody>
+</table>
+

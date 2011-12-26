@@ -1,0 +1,8 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<a href="@{VariablesC.create()}">Create new variable</a>
+<br/>
+<br/>
+#{list items:variables, as:'variable'}
+  ${variable.id} <a href="@{VariablesC.action(variable.id)}">${variable.name}</a><br>
+#{/list}
