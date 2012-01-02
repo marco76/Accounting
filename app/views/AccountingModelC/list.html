@@ -14,7 +14,7 @@
         <td>${accountingModel.nameIT}</td>
         <td> <a href="@{AccountingModelC.prepareUpdate(accountingModel.id)}"><img src="/public/images/edit.png"/> </a></td>
         <td> <a href="@{AccountCategoryC.list(accountingModel.id)}"><img src="/public/images/account_classes.png"/> </a></td>
-
+        <td> <a href="@{AccountingModelC.doDelete(accountingModel.id)}"><img src="/public/images/delete.png"/> </a></td>
     </tr>
 #{/list}
     </tbody>

@@ -1,0 +1,16 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<br/>
+<br/>
+
+<table id="hor-minimalist-b">
+    <thead><tr><th>Name It</th><th></th><th></th></tr></thead>
+    <tbody>
+#{list items:accountingPeriods, as:'accountingPeriod'}
+    <tr>
+        <td>${accountingPeriod.name}</td><td>${accountingPeriod.year}</td>
+        <<td> <a href="@{AccountingPeriodC.listAccounts(accountingPeriod.id)}"><img src="/public/images/edit.png"/> </a></td>
+           </tr>
+#{/list}
+    </tbody>
+</table>

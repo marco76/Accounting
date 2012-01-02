@@ -1,0 +1,19 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<br/>
+<br/>
+
+<table id="hor-minimalist-b">
+    <thead><tr><th>Name It</th><th></th><th></th></tr></thead>
+    <tbody>
+#{list items:accounts, as:'account'}
+    <tr>
+        <td>${account.number}</td>
+        <td>${account.nameIT}</td>
+        <td> <a href="@{AccountingPeriodC.categoryDetail(account.period.id, account.id)}"><img src="/public/images/edit.png"/> </a></td>
+        <td> <a href="@{AccountingPeriodC.index}"><img src="/public/images/account_classes.png"/> </a></td>
+        <td> <a href="@{AccountingPeriodC.index}"><img src="/public/images/delete.png"/> </a></td>
+    </tr>
+#{/list}
+    </tbody>
+</table>

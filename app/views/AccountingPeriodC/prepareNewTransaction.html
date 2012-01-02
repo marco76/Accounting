@@ -1,0 +1,279 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+#{set 'moreScripts'}
+
+<script type="text/javascript">
+    var sumDare= 0, sumAvere=0;
+    $(function () {
+        $(".draggable").draggable({helper:'clone'});
+        $(".name").droppable({
+            hoverClass: "ui-state-active",
+            drop:function (event, ui) {
+
+                var div_id = ui.draggable[0].id; // id of the draggable div
+
+                var name = $(this).attr('name');
+                name = name.replace("nameIT", "number");
+                var value = $('input[name="' + name + '"]').val();
+
+                $('input[name="' + name + '"]').val(div_id);
+                $(this).val(ui.draggable.text());
+
+                $(this)
+                        .addClass("ui-state-highlight")
+                        .attr('disabled', true);
+                //.val( ui.draggable.text )
+                ;
+
+
+            }
+        });
+        $('.dare').blur(function () {
+            var sum = 0;
+            $('.dare').each(function () {
+                sum += Number($(this).val());
+            });
+            $('input[name="sumDare"]').val(sum.toFixed(2));
+            sumDare = sum;
+            if (sumDare != sumAvere){
+                $('input[name="sumDare"]').removeClass("okSumField").
+                addClass("errorSumField");
+                $("#saveTransaction").prop('value', 'Not balanced').prop('disabled', 'true');
+
+            } else {
+                $('input[name="sumDare"]').removeClass("errorSumField").addClass("okSumField");
+                $("#saveTransaction").prop('value', 'Save').prop('disabled', 'false');
+            }
+
+        });
+
+        $('.avere').blur(function () {
+            var sum = 0;
+
+            $('.avere').each(function () {
+                sum += Number($(this).val());
+            });
+            $('input[name="sumAvere"]').val(sum.toFixed(2));
+            sumAvere = sum;
+            if (sumDare != sumAvere){
+                $("#saveTransaction").prop('value', 'Not balanced').removeAttr("disabled");
+                $('input[name="sumDare"]').removeClass("okSumField").
+                            addClass("errorSumField");
+                        } else {
+                            $('input[name="sumDare"]').removeClass("errorSumField").addClass("okSumField");
+                $("#saveTransaction").prop('value', 'Save').removeAttr("disabled");
+                        }
+        });
+    });
+
+</script>
+
+
+<style>
+    #sortable1, #sortable2 {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        float: left;
+        margin-right: 10px;
+    }
+
+    #sortable1 li, #sortable2 li {
+        margin: 0 5px 5px 5px;
+        padding: 0px;
+        font-size: 1.0em;
+        width: 120px;
+        font-family: Arial
+    }
+
+    #droppable {
+        width: 150px;
+        height: 150px;
+        padding: 0.5em;
+        float: left;
+        margin: 10px;
+    }
+    .errorSumField{
+            background:#EEE;
+            color: #6F6F6F;
+            border: solid 2px #DFDFDF;
+        }
+    .okSumField{
+                background:#EEE;
+                color: #006633;
+                border: solid 2px #DFDFDF;
+            }
+
+
+</style>
+<script>
+    $(function () {
+        $("#sortable1, #sortable2").sortable({
+            connectWith:".connectedSortable"
+        }).disableSelection();
+    });
+</script>
+<script type="text/javascript">
+    (function ($) {
+        jQuery.expr[':'].Contains = function (a, i, m) {
+            return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+        };
+
+
+        function filterList(header, list) {
+            var form = $("<form>").attr({"class":"filterform", "action":"#"}),
+                    input = $("<input>").attr({"class":"filterinput", "type":"text"});
+            $(form).append(input).appendTo(header);
+
+            $(input)
+                    .change(function () {
+                        var filter = $(this).val();
+                        if (filter) {
+
+                            $matches = $(list).find('a:Contains(' + filter + ')').parent();
+                            $('li', list).not($matches).slideUp();
+                            $matches.slideDown();
+
+                        } else {
+                            $(list).find("li").slideDown();
+                        }
+                        return false;
+                    })
+                    .keyup(function () {
+                        $(this).change();
+                    });
+        }
+
+        $(function () {
+            filterList($("#form"), $("#list"));
+        });
+    }(jQuery));
+
+
+</script>
+<link type="text/css" href="/public/stylesheets/le-frog/jquery-ui-1.8.16.custom.css" rel="stylesheet"/>
+
+#{/set}
+
+<div id="wrap">
+    <p>
+        Complete the form to add a new Transaction
+    </p>
+
+    <div class="product-head">
+        <div id="form"></div>
+        <div class="clear"></div>
+    </div>
+    <div id="list">
+        <ul id="sortable1" class="connectedSortable">
+        #{list items:listAccounts , as:'account'}
+            <li class="draggable" id="${account.number}"
+                value="${account.number} ${account.nameIT}">${account.number} ${account.nameIT}<a
+                    href='#/${account.nameIT}'/></li>
+        #{/list}
+        </ul>
+
+    </div>
+</div>
+
+
+<form action="@{AccountingPeriodC.doTransaction()}" method="POST">
+
+    <table>
+        <thead></thead>
+        <tbody>
+        <td>
+            <table>
+                <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="hidden" value="${account.number}" name="account[0].number" id="account[0].number"/>
+                    </td>
+                    <td><input type="text" value="${account.nameIT}" name="account[0].nameIT" class="name"/>
+                    </td>
+                    <td>
+                        <input type="text" name="amount[0]" id="amount0" class="dare" value="">
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="account[1].number" id="account[1].number"/></td>
+                    <td><input type="text" name="account[1].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[1]" class="dare"/></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="account[2].number" id="account[2].number"/></td>
+                    <td><input type="text" name="account[2].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[2]" class="dare"/></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="account[3].number" id="account[3].number"/></td>
+                    <td><input type="text" name="account[3].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[3]" class="dare"/></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="account[4].number" id="account[4].number"/></td>
+                    <td><input type="text" name="account[4].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[4]" class="dare"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td><input type="text" id="sumDare" name="sumDare" disabled="true"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+        <td>
+            <table>
+                <thead><tr>
+                                    <th>Numero</th>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                </tr></thead>
+                <tbody>
+
+                <tr>
+                    <td><input type="hidden" name="account[10].number" id="account[10].number"/></td>
+                    <td><input type="text" name="account[10].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[10]" class="avere"/></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="account[11].number" id="account[11].number"/></td>
+                    <td><input type="text" name="account[11].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[11]" class="avere"/></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="account[12].number" id="account[12].number"/></td>
+                    <td><input type="text" name="account[12].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[12]" class="avere"/></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="account[13].number" id="account[13].number"/></td>
+                    <td><input type="text" name="account[13].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[13]" class="avere"/></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="account[14].number" id="account[14].number"/></td>
+                    <td><input type="text" name="account[14].nameIT" class="name"/></td>
+                    <td><input type="text" name="amount[14]" class="avere"/></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"></td>
+                    <td><input type="text" id="sumAvere" name="sumAvere" disabled="true"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+        </tbody>
+    </table>
+    <input type="submit" name="saveTransaction" id="saveTransaction" value="Create">
+</form>
+
+</div>

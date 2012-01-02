@@ -23,7 +23,10 @@ public class Authenticate extends Controller {
         UserCacheBean user = new UserCacheBean();
         user.setUsername(logged.username);
         user.setUserId(logged.id);
-        Cache.add(uuid, user);
+        // @todo find a solution for this during DEV
+        //Cache.add(uuid, user,"30mn");
+        Cache.add(uuid, user );
+
         Application.index();
     }
     

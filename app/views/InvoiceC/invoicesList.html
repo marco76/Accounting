@@ -1,16 +1,7 @@
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/jquery.numberformatter-1.2.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/jshashset.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-
-
-<script>
-    $("#salary").blur(function(){
-       $(this).parseNumber({format:"#,###.00", locale:"ch"});
-       $(this).formatNumber({format:"#,###.00", locale:"ch"});
-    });
-	</script>
 #{/set}
-
 #{extends 'templates/_invoice.html' /}
 #{set 'menu'}
 

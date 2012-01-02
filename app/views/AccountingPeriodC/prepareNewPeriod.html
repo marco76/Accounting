@@ -1,0 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<br/>
+<br/>
+<form action="@{AccountingPeriodC.doNewPeriod()}" method="POST">
+    Choose a year for the new plan:
+    <input type="text" name ="year" />
+    <select name="plan">
+    #{list items:userModels, as:'userModel'}
+         <option value="${userModel.id}">${userModel.name}</option>
+    #{/list}
+        </select>
+    <input type="submit" name="create" value="Create"/>
+</form>

@@ -1,0 +1,32 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+<br/>
+<br/>
+
+Your current plans:
+
+<table id="hor-minimalist-b">
+    <thead><tr><th>Name It</th><th></th><th></th></tr></thead>
+    <tbody>
+#{list items:userPlans, as:'userModel'}
+    <tr>
+        <td>${userModel.name}</td>
+        </tr>
+#{/list}
+    </tbody>
+</table>
+
+Choose an account plan to apply to your accounting:
+
+<table id="hor-minimalist-b">
+    <thead><tr><th>Name It</th><th></th><th></th></tr></thead>
+    <tbody>
+#{list items:accountingModels, as:'accountingModel'}
+    <tr>
+        <td>${accountingModel.nameIT}</td>
+        <td> <a href="@{OptionsC.doApplyAccountingModel(accountingModel.id)}"><img src="/public/images/edit.png"/> </a></td>
+        </tr>
+#{/list}
+    </tbody>
+</table>
+

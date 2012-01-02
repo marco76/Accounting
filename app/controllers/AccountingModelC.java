@@ -1,5 +1,6 @@
 package controllers;
 
+import models.ch.genidea.conta.models.accounting.AccountCategory;
 import models.ch.genidea.conta.models.accounting.AccountingModel;
 import play.data.binding.As;
 import play.mvc.Controller;
@@ -39,4 +40,12 @@ public class AccountingModelC extends Controller {
                 accountingModel.save();
                     list();
                 }
+    public static void doDelete(Long id){
+       AccountingModel am = AccountingModel.findById(id);
+        Long accountsLinked = AccountCategory.count("model = ?", am);
+        if (accountsLinked.compareTo(0l) == 0){
+            am.delete();
+        }
+        list();
+    }
 }

@@ -24,8 +24,13 @@
             <li><a href="@{ClientC.listClient}" title="">Client list<span>We are a great team of people, with lots of fantastic things to offer.</span></a></li>
             <li><a href="@{SaleC.listSales}" title="">Sales List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
             <li><a href="@{TodoC.list}" title="">Todo List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+        <li><a href="@{AccountingPeriodC.prepareNewTransaction}" title="">Accounting<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+
         <li><a href="@{VariablesC.list}" title="">Variable List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
-        <li><a href="@{AccountingModelC.list}" title="">Accounting List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+            <li><a href="@{AccountingModelC.list}" title="">Accounting List<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+            <li><a href="@{OptionsC.index}" title="">Options<span>Our portfolio showcases all the work that we've done for the past few weeks.</span></a></li>
+
+
     <!--Authentification code-->
     #{if session.userId != null}
     <li><a href="@{Authenticate.logout()}">Logout</a></li>

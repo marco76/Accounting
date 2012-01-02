@@ -5,7 +5,6 @@ import play.db.jpa.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +14,7 @@ import javax.persistence.OneToOne;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class AccountUser extends Model{
+public class AccountUserPeriod extends Model{
     /*
        Inherited from AccountCategory, it's not possible extend the class because it already extends Model
      */
@@ -24,10 +23,14 @@ public class AccountUser extends Model{
     @ManyToOne
     public AccountingUserModel model;
     @ManyToOne
-    public AccountUser parentCategory;
+    public AccountUserPeriod parentCategory;
     // if is not an account is a category
     public Boolean account = Boolean.FALSE;
+    @ManyToOne
+    public User user;
     /*
       end of inherited
      */
+    @ManyToOne
+    public AccountingPeriod period;
 }
